@@ -21,14 +21,14 @@ Use Instructions
 
 - Download all games
 
-    GMRHC --key <API KEY>
+    GMRHC --key &lt;API KEY>
 
 - List your current Games and Turn IDs
 
-    GMRHC --key <API KEY> --games
+    GMRHC --key &lt;API KEY> --games
 
  - NOTE: Turn IDs are currently needed to upload saves
 
 - Upload a Save
 
-    GMRHC --key <API KEY> --upload <Turn ID> <Save File Path>
+    GMRHC --key &lt;API KEY> --upload &lt;Turn ID> &lt;Save File Path>
