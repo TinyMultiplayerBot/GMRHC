@@ -51,12 +51,23 @@ listGames ak = do
     let gs = games decoded
     listGamesHelper gs
 
+genULurl :: String -> String -> String
+genULurl ak tId = apiURL ++ "SubmitTurn?authKey=" ++ ak ++ "&turnId=" ++ tId
+
+submitTurn :: String -> String -> FilePath -> IO ()
+submitTurn ak tId fp = do
+    save <- C.readFile fp
+    res <- post (C.pack (genULurl ak tId)) "application/civ5Save"(fileBody fp) concatHandler
+    Prelude.putStrLn "This output is currently not well understood, thus raw output:"
+    C.putStrLn res
+
 
 helpStr = unwords ["GMRHC --key <API KEY> [--games] [--upload <game id> <save path>]\n\n",
                    "Giant Multiplayer Robot Haskell Client\n",
                    "A Simple file upload and download CLI tool for Giant Multiplayer Robot\n\n",
                    "    --key                     - Your API Key. Using this alone downloads all your saves\n",
-                   "    --games                   - List all games and Turn IDs. Needed for uploading\n",]
+                   "    --games                   - List all games and Turn IDs. Needed for uploading\n",
+                   "    --upload <turn id> <save> - Uploads the save file"]
 
 main :: IO ()
 main = do
@@ -65,4 +76,5 @@ main = do
     case args of
         ["--key", authKey] -> getLatestSaveFileByets authKey
         ["--key", authKey, "--games"] -> listGames authKey
+        ["--key", authKey, "--upload", iD, fp] -> submitTurn authKey iD fp
         _ -> Prelude.putStrLn helpStr
