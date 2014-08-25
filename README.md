@@ -27,3 +27,8 @@ Use Instructions
 
     GMRHC --key <API KEY> --games
 
+ - NOTE: Turn IDs are currently needed to upload saves
+
+- Upload a Save
+
+    GMRHC --key <API KEY> --upload <Turn ID> <Save File Path>
