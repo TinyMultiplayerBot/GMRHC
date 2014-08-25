@@ -22,3 +22,8 @@ Use Instructions
 - Download all games
 
     GMRHC --key <API KEY>
+
+- List your current Games and Turn IDs
+
+    GMRHC --key <API KEY> --games
+
