@@ -38,10 +38,25 @@ getLatestSaveFileByets authKey = do
     downloadSave authKey (games decoded)
     Prelude.putStrLn "Done"
 
+listGamesHelper [] = return ()
+listGamesHelper (g:gs) = do
+    Prelude.putStrLn ((name g) ++ " - " ++ (show $ turnId $ currentTurn g))
+    listGamesHelper gs
+
+listGames :: String -> IO ()
+listGames ak = do
+    playerID <- authPlayer ak
+    result <- getGamesAndPlayers ak (C.unpack playerID)
+    let decoded = decodeGAndP ( (decodeStrict result) :: Maybe GamesAndPlayers)
+    let gs = games decoded
+    listGamesHelper gs
+
+
 helpStr = unwords ["GMRHC --key <API KEY> [--games] [--upload <game id> <save path>]\n\n",
                    "Giant Multiplayer Robot Haskell Client\n",
                    "A Simple file upload and download CLI tool for Giant Multiplayer Robot\n\n",
-                   "    --key                     - Your API Key. Using this alone downloads all your saves\n"]
+                   "    --key                     - Your API Key. Using this alone downloads all your saves\n",
+                   "    --games                   - List all games and Turn IDs. Needed for uploading\n",]
 
 main :: IO ()
 main = do
@@ -49,4 +64,5 @@ main = do
 
     case args of
         ["--key", authKey] -> getLatestSaveFileByets authKey
+        ["--key", authKey, "--games"] -> listGames authKey
         _ -> Prelude.putStrLn helpStr
