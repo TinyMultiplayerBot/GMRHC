@@ -14,7 +14,7 @@ Dependencies
 Build
 -----
 
-    cabal build
+    cabal install -j
 
 
 Use Instructions
