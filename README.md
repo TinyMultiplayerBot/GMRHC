@@ -16,6 +16,8 @@ Build
 
     cabal install -j
 
+Output will be: dist/build/GMRHC
+
 
 Use Instructions
 ----------------
