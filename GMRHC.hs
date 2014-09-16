@@ -27,7 +27,7 @@ downloadSave _ [] = return ()
 downloadSave ak (g:gList) = do
     Prelude.putStrLn $ "Downloading " ++ name g
     save <- get (genDLurl ak (show $ gameId g)) concatHandler
-    C.writeFile (name g ++ ".Civ5save") save
+    C.writeFile (name g ++ ".Civ5Save") save
     downloadSave ak gList
 
 getLatestSaveFileByets :: String -> IO ()
