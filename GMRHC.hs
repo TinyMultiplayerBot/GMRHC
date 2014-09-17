@@ -62,19 +62,19 @@ submitTurn ak tId fp = do
     C.putStrLn res
 
 
-helpStr = unwords ["GMRHC --key <API KEY> [--games] [--upload <game id> <save path>]\n\n",
+helpStr = unwords ["GMRHC [download | games | upload <turn id> <save file>]\n\n",
                    "Giant Multiplayer Robot Haskell Client\n",
                    "A Simple file upload and download CLI tool for Giant Multiplayer Robot\n\n",
-                   "    --key                     - Your API Key. Using this alone downloads all your saves\n",
-                   "    --games                   - List all games and Turn IDs. Needed for uploading\n",
-                   "    --upload <turn id> <save> - Uploads the save file"]
+                   "    download                  - Download your current game saves\n",
+                   "    games                     - List all games and Turn IDs. Needed for uploading\n",
+                   "    upload <turn id> <save>   - Uploads the save file"]
 
 main :: IO ()
 main = do
     args <- getArgs
 
     case args of
-        ["--key", authKey] -> getLatestSaveFileByets authKey
-        ["--key", authKey, "--games"] -> listGames authKey
-        ["--key", authKey, "--upload", iD, fp] -> submitTurn authKey iD fp
+        ["downloa"]        -> getLatestSaveFileByets authKey
+        ["games"]          -> listGames authKey
+        ["upload", iD, fp] -> submitTurn authKey iD fp
         _ -> Prelude.putStrLn helpStr
