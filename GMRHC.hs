@@ -3,6 +3,7 @@
 import Data.Aeson
 import Data.Maybe (fromMaybe)
 import Network.Http.Client
+import System.Directory (getHomeDirectory)
 import System.Environment (getArgs)
 import qualified Data.ByteString.Char8 as C
 
@@ -72,6 +73,10 @@ helpStr = unwords ["GMRHC [download | games | upload <turn id> <save file>]\n\n"
 main :: IO ()
 main = do
     args <- getArgs
+
+    -- Load the config
+    conf_path <- getHomeDirectory
+    let aoeu = conf_path ++ "/.gmrrc"
 
     case args of
         ["downloa"]        -> getLatestSaveFileByets authKey

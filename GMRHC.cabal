@@ -23,6 +23,7 @@ executable GMRHC
   build-depends:       base >=4.6 && <4.7,
                        bytestring >=0.10 && <0.11,
                        aeson,
+                       directory,
                        http-streams
   -- hs-source-dirs:      
   default-language:    Haskell2010
